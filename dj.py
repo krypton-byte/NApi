@@ -11,7 +11,6 @@ def parser(nuklir):
         if i('img'):
             komik.append(i('img')[0]['data-src'])
     id_=komik[0].split('/')[-2]
-    komik.insert(+0,'https://t.nhentai.net/galleries/%s/cover.jpg'%(id_))
     return download({
         'id':id_,
         'title':parsing.title.text,
@@ -27,5 +26,5 @@ def download(form):
     for u in form['image'][1:]:
         print(u)
         halaman.append(Image.open(BytesIO(requests.get('https://i'+u[9:-5]+'.jpg').content)).convert("RGB"))
-    halaman[0].save('pdf/%s.pdf'%(form['title']), save_all=True, append_images=halaman[1:-1])
+    halaman[0].save('pdf/%s.pdf'%(form['title']), save_all=True, append_images=halaman[1:])
     return title+'.pdf'
